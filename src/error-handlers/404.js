@@ -7,4 +7,4 @@ module.exports = (req, res, next) => {
     message: 'Route Not Found'
   });
   next();
-}
+};

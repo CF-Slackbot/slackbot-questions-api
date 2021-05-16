@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 const notFound = require('./error-handlers/404.js');
@@ -25,4 +26,4 @@ module.exports = {
       console.log(`Gurrl we up on: ${port}`);
     });
   }
-}
+};
