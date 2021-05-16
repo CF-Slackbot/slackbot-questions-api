@@ -17,27 +17,38 @@ router.get('/questions/search', questionHandler);
 
 
 async function getAllQuestions(req, res) {
-  const allQuestions = await Question.find({});
-  res.status(200).json(allQuestions);
+  try {
+    const allQuestions = await Question.find({});
+    res.status(200).json(allQuestions);
+  } catch (err) {
+    return {
+      response: err.message
+    }
+  }
 }
 
 
-async function questionHandler(req, res){
-  let category = req.query.category;
-  let difficulty = req.query.difficulty;
-
-  if (category && difficulty){
-    await Question.find({ category, difficulty }, function (err, items) {
-      res.status(200).send(items);
-    }).exec();
-  } else if (difficulty) {
-    await Question.find({ difficulty }, function (err, items) {
-      res.status(200).send(items);
-    }).exec();
-  } else if (category) {
-    await Question.find({ category }, function (err, items) {
-      res.status(200).send(items);
-    })
+async function questionHandler(req, res) {
+  try {
+    let category = req.query.category;
+    let difficulty = req.query.difficulty;
+    if (category && difficulty) {
+      await Question.find({ category, difficulty }, function (err, items) {
+        res.status(200).send(items);
+      }).exec();
+    } else if (difficulty) {
+      await Question.find({ difficulty }, function (err, items) {
+        res.status(200).send(items);
+      }).exec();
+    } else if (category) {
+      await Question.find({ category }, function (err, items) {
+        res.status(200).send(items);
+      });
+    }
+  } catch (err) {
+    return {
+      response: err.message
+    }
   }
 }
 
