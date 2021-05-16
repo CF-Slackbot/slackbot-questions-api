@@ -1,5 +1,9 @@
 # slackbot-questions-api
 
+## Deployed Site
+
+[CF-Slackbot-Questions-API](https://cf-slackbot-questions-api.herokuapp.com/)
+
 ## Routes
 
 - `/questions` gets all the questions
