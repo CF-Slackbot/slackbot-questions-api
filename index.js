@@ -7,7 +7,7 @@ const server = require('./src/server.js');
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(`${MONGODB_URI}`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`${MONGODB_URI}`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

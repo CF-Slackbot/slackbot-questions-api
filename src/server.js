@@ -8,6 +8,8 @@ const errorHandler = require('./error-handlers/500.js');
 
 const routes = require('../src/routes/api-routes.js');
 
+app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
