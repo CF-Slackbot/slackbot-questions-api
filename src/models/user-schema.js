@@ -11,14 +11,14 @@ const userSchema = new mongoose.Schema({
   
 });
 
-users.virtual('token').get(function () {
+userSchema.virtual('token').get(function () {
   let tokenObject = {
     username: this.username,
   }
   return jwt.sign(tokenObject, process.env.SECRET)
 });
 
-users.virtual('capabilities').get(function () {
+userSchema.virtual('capabilities').get(function () {
   let acl = {
     ta: ['read'],
     faculty: ['read', 'create', 'update'],
@@ -27,14 +27,14 @@ users.virtual('capabilities').get(function () {
   return acl[this.role];
 });
 
-users.pre('save', async function () {
+userSchema.pre('save', async function () {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }
 });
 
 // BASIC AUTH
-users.statics.authenticateBasic = async function (username, password) {
+userSchema.statics.authenticateBasic = async function (username, password) {
   const user = await this.findOne({ username })
   const valid = await bcrypt.compare(password, user.password)
   if (valid) { return user; }
@@ -42,7 +42,7 @@ users.statics.authenticateBasic = async function (username, password) {
 }
 
 // BEARER AUTH
-users.statics.authenticateWithToken = async function (token) {
+userSchema.statics.authenticateWithToken = async function (token) {
   try {
     const parsedToken = jwt.verify(token, process.env.SECRET);
     const user = this.findOne({ username: parsedToken.username })
