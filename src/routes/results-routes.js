@@ -1,7 +1,6 @@
 'use strict';
 
 let router = require('express').Router();
-const resultsModel = require('../models/results-schema.js');
 const Results = require('../models/results-schema.js');
 require('mongoose');
 
