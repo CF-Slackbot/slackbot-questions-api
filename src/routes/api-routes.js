@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/questions', getAllQuestions);
 router.get('/questions/search', questionHandler);
+router.post('/questions', addQuestion);
 
 
 async function getAllQuestions(req, res) {
@@ -45,6 +46,20 @@ async function questionHandler(req, res) {
         res.status(200).send(items);
       });
     }
+  } catch (err) {
+    return {
+      response: err.message
+    }
+  }
+}
+
+async function addQuestion(req, res) {
+  try {
+    const data = req.body;
+    const newQuestion = new Question(data);
+  
+    await newQuestion.save();
+    res.status(200).json(newQuestion);
   } catch (err) {
     return {
       response: err.message
