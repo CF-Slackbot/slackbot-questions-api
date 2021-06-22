@@ -1,5 +1,16 @@
+// 'use strict';
+
+// module.exports = (error, req, res, next) => {
+//   res.status(500).send('Gurrl something went wrong');
+// };
+
 'use strict';
 
-module.exports = (error, req, res, next) => {
-  res.status(500).send('Gurrl something went wrong');
+module.exports = (err, req, res, next) => {
+  let error = { error: err.message || err };
+  res.statusCode = err.status || 500;
+  res.statusMessage = err.statusMessage || 'Server Error';
+  res.setHeader('Content-Type', 'application/json');
+  res.write(JSON.stringify(error));
+  res.end();
 };
