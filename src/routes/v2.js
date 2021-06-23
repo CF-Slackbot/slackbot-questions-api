@@ -14,7 +14,6 @@ router.param("model", (req, res, next) => {
     req.model = models.get(modelName);
     next();
   } else {
-    // const fileName = `${__dirname}/../models/${modelName}/model.js`;
     const fileName = `${__dirname}/../models/${modelName}.js`;
     if (fs.existsSync(fileName)) {
       const model = require(fileName);
