@@ -12,6 +12,7 @@ const apiRoutes = require("../src/routes/api-routes.js");
 
 const v2Routes = require("./routes/v2.js");
 
+
 app.use(cors());
 app.use(morgan("dev"));
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(apiRoutes);
 
 app.use("/api/v2", v2Routes);
+
 
 app.use("*", notFound);
 app.use(errorHandler);
